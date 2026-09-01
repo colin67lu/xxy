@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>陳同學 | 運動營養 & 體能教練 · 羽毛球運動員</title>
+<style>
+  :root{
+    --navy:#0b1f33;
+    --blue:#1e5f8c;
+    --accent:#f2a71b;
+    --light:#f5f7fa;
+    --gray:#5c6b7a;
+    --gold:#d4af37;
+    --silver:#9aa5ad;
+    --bronze:#b06a3a;
+    --other:#7a8b99;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif;background:var(--light);color:#1a1a1a;line-height:1.6;}
+  a{text-decoration:none;color:inherit;}
+  header{
+    background:linear-gradient(135deg,var(--navy),var(--blue));
+    color:white;padding:80px 20px 100px;text-align:center;position:relative;
+  }
+  header h1{font-size:2.6rem;margin-bottom:8px;letter-spacing:1px;}
+  header p.role{font-size:1.2rem;color:var(--accent);font-weight:600;margin-bottom:20px;}
+  header p.tag{max-width:640px;margin:0 auto 25px;font-size:1rem;opacity:.9;}
+  .social{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;}
+  .social a{background:rgba(255,255,255,0.12);padding:8px 18px;border-radius:30px;font-size:.9rem;transition:.25s;}
+  .social a:hover{background:var(--accent);color:var(--navy);}
+  nav{
+    position:sticky;top:0;background:white;box-shadow:0 2px 8px rgba(0,0,0,.08);
+    display:flex;justify-content:center;gap:24px;padding:14px 10px;z-index:10;flex-wrap:wrap;
+  }
+  nav a{font-weight:600;color:var(--navy);font-size:.92rem;padding:6px 4px;border-bottom:2px solid transparent;}
+  nav a:hover{border-bottom:2px solid var(--accent);}
+  section{max-width:1000px;margin:0 auto;padding:70px 24px;}
+  h2.section-title{font-size:1.8rem;color:var(--navy);margin-bottom:8px;position:relative;display:inline-block;}
+  h2.section-title::after{content:"";display:block;width:50px;height:4px;background:var(--accent);margin-top:8px;border-radius:2px;}
+  .subtitle{color:var(--gray);margin-bottom:35px;font-size:.95rem;}
+  .about-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:start;}
+  @media (max-width:700px){.about-grid{grid-template-columns:1fr;}}
+  .about-text p{margin-bottom:14px;color:#333;}
+  .info-card{background:white;border-radius:14px;padding:24px;box-shadow:0 4px 16px rgba(0,0,0,.06);}
+  .info-card div{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;font-size:.92rem;}
+  .info-card div:last-child{border-bottom:none;}
+  .info-card span.label{color:var(--gray);}
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:24px;}
+  .skill-card{background:white;border-radius:14px;padding:22px;box-shadow:0 4px 16px rgba(0,0,0,.06);}
+  .skill-card h3{color:var(--blue);margin-bottom:10px;font-size:1.05rem;}
+  .bar-bg{background:#e6ebf0;border-radius:6px;height:9px;margin-top:6px;overflow:hidden;}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--accent));border-radius:6px;}
+  .skill-item{margin-bottom:14px;}
+  .skill-item:last-child{margin-bottom:0;}
+  .skill-item .row{display:flex;justify-content:space-between;font-size:.85rem;color:var(--gray);}
+  .timeline{position:relative;padding-left:30px;border-left:3px solid #dbe3ea;}
+  .tl-item{position:relative;margin-bottom:36px;}
+  .tl-item::before{content:"";position:absolute;left:-39px;top:4px;width:14px;height:14px;background:var(--accent);border-radius:50%;border:3px solid white;box-shadow:0 0 0 3px #dbe3ea;}
+  .tl-item h3{color:var(--navy);font-size:1.1rem;}
+  .tl-item .period{color:var(--accent);font-weight:600;font-size:.85rem;margin:2px 0 8px;}
+  .tl-item p{color:#333;font-size:.92rem;}
+  .edu-card{background:white;border-radius:14px;padding:24px;box-shadow:0 4px 16px rgba(0,0,0,.06);margin-bottom:18px;}
+  .edu-card h3{color:var(--navy);}
+  .edu-card .period{color:var(--gray);font-size:.85rem;margin:4px 0;}
+  .contact-box{background:white;border-radius:16px;padding:40px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.08);}
+  .contact-links{display:flex;justify-content:center;gap:20px;margin-top:20px;flex-wrap:wrap;}
+  .contact-links a{background:var(--navy);color:white;padding:10px 22px;border-radius:30px;font-size:.9rem;transition:.25s;}
+  .contact-links a:hover{background:var(--accent);color:var(--navy);}
+  footer{text-align:center;padding:30px;color:var(--gray);font-size:.85rem;}
+
+  .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:16px;margin-bottom:40px;}
+  .stat-box{background:white;border-radius:14px;padding:20px 10px;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,.06);}
+  .stat-box .num{font-size:1.8rem;font-weight:700;color:var(--navy);}
+  .stat-box .lbl{font-size:.8rem;color:var(--gray);margin-top:4px;}
+  .year-group{margin-bottom:32px;}
+  .year-group h3{color:var(--blue);font-size:1.15rem;margin-bottom:14px;border-bottom:2px solid #dbe3ea;padding-bottom:6px;}
+  .award-card{
+    background:white;border-radius:12px;padding:16px 18px;margin-bottom:12px;
+    box-shadow:0 3px 12px rgba(0,0,0,.05);display:flex;align-items:flex-start;gap:14px;
+  }
+  .badge{
+    flex-shrink:0;min-width:64px;text-align:center;color:white;font-weight:700;font-size:.8rem;
+    padding:6px 8px;border-radius:8px;
+  }
+  .badge.gold{background:var(--gold);}
+  .badge.silver{background:var(--silver);}
+  .badge.bronze{background:var(--bronze);}
+  .badge.other{background:var(--other);}
+  .award-content .a-title{font-weight:600;color:var(--navy);font-size:.98rem;}
+  .award-content .a-event{color:var(--gray);font-size:.85rem;margin-top:2px;}
+  .award-content .a-date{color:var(--accent);font-size:.78rem;font-weight:600;margin-top:2px;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>陳同學 (Chan XX)</h1>
+  <p class="role">運動營養與體適能學生 · 羽毛球助教教練 · 現役羽毛球運動員</p>
+  <p class="tag">香港專業教育學院(IVE)體適能與運動營養學高級文憑學生,擁有羽毛球俱樂部助教及兒童初級課程設計經驗,同時亦是活躍嘅分齡羽毛球賽事運動員,累積多項男子單打及雙打獎項。</p>
+  <div class="social">
+    <a href="mailto:youremail@example.com">Email</a>
+    <a href="#" target="_blank">Instagram</a>
+    <a href="#" target="_blank">LinkedIn</a>
+  </div>
+</header>
+
+<nav>
+  <a href="#about">關於我</a>
+  <a href="#skills">專業技能</a>
+  <a href="#achievements">得獎項目</a>
+  <a href="#experience">工作經歷</a>
+  <a href="#education">學歷</a>
+  <a href="#contact">聯絡</a>
+</nav>
+
+<section id="about">
+  <h2 class="section-title">關於我</h2>
+  <p class="subtitle">Fitness & Sports Nutrition Student / Badminton Coach & Player</p>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>我是一名就讀於香港專業教育學院(IVE)體適能與運動營養學高級文憑課程的學生,對運動科學、體能訓練及營養學有濃厚興趣,並積極將所學應用於實務教學。</p>
+      <p>作為羽毛球俱樂部助教,我曾設計及教授初級羽毛球課程給兒童學員;同時我亦是活躍嘅分齡賽事運動員,由2022年起持續參與全港各區分齡及公開羽毛球比賽,累積超過20項男子單打及雙打獎項,包括2026年深水埗區分齡17-18歲組男單冠軍。</p>
+      <p>閒時最大興趣係<strong>羽毛球</strong>同<strong>街頭健身(Street Workout)</strong>——場上追求更快嘅步法同更精準嘅擊球,場下就透過單槓、雙槓等徒手訓練提升核心力量、爆發力同身體控制,兩者相輔相成,亦係我運動科學知識最直接嘅實踐場。</p>
+    </div>
+    <div class="info-card">
+      <div><span class="label">地區</span><span>香港</span></div>
+      <div><span class="label">學校</span><span>香港專業教育學院 (IVE)</span></div>
+      <div><span class="label">主修</span><span>體適能與運動營養學</span></div>
+      <div><span class="label">身份</span><span>羽毛球助教 / 運動員</span></div>
+      <div><span class="label">興趣</span><span>羽毛球、街頭健身</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" style="background:#eef2f6;">
+  <h2 class="section-title">專業技能</h2>
+  <p class="subtitle">Coaching, Nutrition & Training Expertise</p>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <h3>🏸 羽毛球教學</h3>
+      <div class="skill-item"><div class="row"><span>技術指導</span><span>85%</span></div><div class="bar-bg"><div class="bar-fill" style="width:85%"></div></div></div>
+      <div class="skill-item"><div class="row"><span>課程設計</span><span>80%</span></div><div class="bar-bg"><div class="bar-fill" style="width:80%"></div></div></div>
+    </div>
+    <div class="skill-card">
+      <h3>🥗 運動營養</h3>
+      <div class="skill-item"><div class="row"><span>營養規劃</span><span>75%</span></div><div class="bar-bg"><div class="bar-fill" style="width:75%"></div></div></div>
+      <div class="skill-item"><div class="row"><span>補充品知識</span><span>78%</span></div><div class="bar-bg"><div class="bar-fill" style="width:78%"></div></div></div>
+    </div>
+    <div class="skill-card">
+      <h3>💪 街頭健身 / 體能訓練</h3>
+      <div class="skill-item"><div class="row"><span>徒手力量訓練</span><span>82%</span></div><div class="bar-bg"><div class="bar-fill" style="width:82%"></div></div></div>
+      <div class="skill-item"><div class="row"><span>敏捷/移動訓練</span><span>85%</span></div><div class="bar-bg"><div class="bar-fill" style="width:85%"></div></div></div>
+    </div>
+    <div class="skill-card">
+      <h3>🏆 比賽競技</h3>
+      <div class="skill-item"><div class="row"><span>單打技術</span><span>90%</span></div><div class="bar-bg"><div class="bar-fill" style="width:90%"></div></div></div>
+      <div class="skill-item"><div class="row"><span>臨場心理素質</span><span>80%</span></div><div class="bar-bg"><div class="bar-fill" style="width:80%"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="achievements">
+  <h2 class="section-title">得獎項目</h2>
+  <p class="subtitle">Badminton Competition Achievements (2022 – 2026)</p>
+
+  <div class="stats-row">
+    <div class="stat-box"><div class="num">21</div><div class="lbl">總獎項數</div></div>
+    <div class="stat-box"><div class="num">4</div><div class="lbl">冠軍 / 第一名</div></div>
+    <div class="stat-box"><div class="num">5</div><div class="lbl">亞軍</div></div>
+    <div class="stat-box"><div class="num">8</div><div class="lbl">季軍</div></div>
+    <div class="stat-box"><div class="num">4</div><div class="lbl">殿軍 / 代表資格</div></div>
+  </div>
+
+  <div class="year-group">
+    <h3>2026</h3>
+    <div class="award-card">
+      <div class="badge gold">冠軍</div>
+      <div class="award-content">
+        <div class="a-title">深水埗區分齡羽毛球比賽 17至18歲組 男單冠軍</div>
+        <div class="a-date">2026年7月</div>
+      </div>
+    </div>
+    <div class="award-card">
+      <div class="badge gold">第一名</div>
+      <div class="award-content">
+        <div class="a-title">薰風‧金羽羽毛球公開賽(第二站) U19-U20組 男子單打第一名</div>
+        <div class="a-date">2026年3月</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="year-group">
+    <h3>2025</h3>
+    <div class="award-card">
+      <div class="badge other">殿軍</div>
+      <div class="award-content">
+        <div class="a-title">北區分齡羽毛球比賽 MF男單殿軍</div>
+        <div class="a-date">2025年11月</div>
+      </div>
+    </div>
+    <div class="award-card">
+      <div class="badge gold">冠軍</div>
+      <div class="award-content">
+        <div class="a-title">屯門區分齡羽毛球比賽 MF男單冠軍</div>
+        <div class="a-date">2025年8月</div>
+      </div>
+    </div>
+    <div class="award-card">
+      <div class="badge silver">亞軍</div>
+      <div class="award-content">
+        <div class="a-title">大埔區分齡羽毛球比賽 MF男單亞軍</div>
+        <div class="a-date">2025年8月</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="year-group">
+    <h3>2024</h3>
+    <div class="award-card">
+      <div class="badge other">殿軍</div>
+      <div class="award-content">
+        <div class="a-title">北區分齡羽毛球比賽2024 男子單打青少年組16-18歲 殿軍</div>
+        <div class="a-event">康樂及文化事務署、北區體育會 合辦</div>
+        <div class="a-date">2024年12月1日</div>
+      </div>
+    </div>
+    <div class="award-card">
+      <div class="badge bronze">季軍</div>
+      <div class="award-content">
+        <div class="a-title">元朗區體育節2024 大灣區羽毛球比賽(恒基兆業地產盃) 男子單打15-18歲組 季軍</div>
+        <div class="a-event">元朗區體育會 主辦</div>
+        <div class="a-date">2024年11月24日</div>
+      </div>
+    </div>
+    <div class="award-card">
+      <div class="badge bronze">季軍</div>
+      <div class="award-content">
+        <div class="a-title">葵青區分齡羽毛球比賽2024 男子單打青少年組16-18歲 季軍</div>
+        <div class="a-event">康樂及文化事務署 主辦</div>
+        <div class="a-date">2024年11月17日</div>
+      </div>
+    </div>
+    <div class="award-card">
+      <div class="badge silver">亞軍</div>
+      <div class="award-content">
+        <div class="a-title">黃大仙分齡羽毛球比賽2024 男子單打青少年組16-18歲 亞軍</div>
+        <div class="a-event">康樂及文化事務署 主辦</div>
+        <div class="a-date">2024年11月3日</div>
+      </div>
+    </div>
+    <div class="award-card">
+      <div class="badge bronze">季軍</div>
+      <div class="award-content">
+        <div class="a-title">深水埗分齡羽毛球比賽2024 男子單打青少年組16-18歲 季軍</div>
+        <div class="a-event">康樂及文化事務署及深水埗體育會 合辦</div>
+        <div class="a-date">2024年10月17日</div>
+      </div>
+    </div>
+    <div class="award-card">
+      <div class="badge other">殿軍</div>
+      <div class="award-content">
+        <div class="a-title">荃灣盃親子暨公開羽毛球雙打比賽2024 公開雙打組-男子青少年組(F組) 殿軍</div>
+        <div class="a-event">荃灣區體育康樂聯會 主辦</div>
+        <div class="a-date">2024年10月6日</div>
+      </div>
+    </div>
+    <div class="award-card">
+      <div class="badge silver">亞軍</div>
+      <div class="award-content">
+        <div class="a-title">荃灣區分齡羽毛球比賽2024 男子單打青少年組15-16歲 亞軍</div>
+        <div class="a-event">康樂及文化事務署 主辦</div>
+        <div class="a-date">2024年8月25日</div>
+      </div>
+    </div>
+    <div class="award-card">
+      <div class="badge silver">亞軍</div>
+      <div class="award-content">
+        <div class="a-title">北區羽毛球挑戰賽2024 親子雙打(兄弟組) 亞軍</div>
+        <div class="a-event">北區體育會 主辦</div>
+        <div class="a-date">2024年8月18日</div>
+      </div>
+    </div>
+    <div class="award-card">
+      <div class="badge other">代表資格</div>
+      <div class="award-content">
+        <div class="a-title">第九屆全港運動會 羽毛球男子單打B組 北區代表球員</div>
+        <div class="a-event">體育委員會 主辦</div>
+        <div class="a-date">2024年4月</div>
+      </div>
+    </div>
+    <div class="award-card">
+      <div class="badge other">榮譽獎項</div>
+      <div class="award-content">
+        <div class="a-title">屈臣氏集團香港學生運動員獎 2023-24</div>
+        <div class="a-event">屈臣氏集團</div>
+        <div class="a-date">2024年3月18日</div>
+      </div>
+    </div>
+    <div class="award-card">
+      <div class="badge gold">冠軍</div>
+      <div class="award-content">
+        <div class="a-title">2023-2024年度第二十七屆新界區際羽毛球聯賽 男子組團體冠軍(代表沙田區體育會)</div>
+        <div class="a-event">新界區體育總會 主辦</div>
+        <div class="a-date">2024年1月</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="year-group">
+    <h3>2023</h3>
+    <div class="award-card">
+      <div class="badge bronze">季軍</div>
+      <div class="award-content">
+        <div class="a-title">北區第三十七屆分齡羽毛球比賽 青少年組13-15歲男單 季軍</div>
+        <div class="a-event">康樂及文化事務署、北區體育會 合辦</div>
+        <div class="a-date">2023年10月</div>
+      </div>
+    </div>
+    <div class="award-card">
+      <div class="badge bronze">季軍</div>
+      <div class="award-content">
+        <div class="a-title">北區第三十七屆分齡羽毛球比賽 青少年組7-18歲混雙 季軍</div>
+        <div class="a-event">康樂及文化事務署、北區體育會 合辦</div>
+        <div class="a-date">2023年10月</div>
+      </div>
+    </div>
+    <div class="award-card">
+      <div class="badge bronze">季軍</div>
+      <div class="award-content">
+        <div class="a-title">北區羽毛球個人挑戰賽2023 15-17歲男子單打 季軍</div>
+        <div class="a-event">北區體育會 主辦</div>
+        <div class="a-date">2023年8月</div>
+      </div>
+    </div>
+    <div class="award-card">
+      <div class="badge bronze">季軍</div>
+      <div class="award-content">
+        <div class="a-title">屯門體育節2023暨屯門新市鎮成立五十周年 屯門區羽毛球賽 MB男子18歲或以下單打 季軍</div>
+        <div class="a-event">屯門區議會地區設施管理及環境衛生委員會轄下社區參與工作小組 及 屯門體育會有限公司 合辦</div>
+        <div class="a-date">2023年8月20日</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="year-group">
+    <h3>2022</h3>
+    <div class="award-card">
+      <div class="badge bronze">季軍</div>
+      <div class="award-content">
+        <div class="a-title">北區第三十六屆分齡羽毛球比賽 男子單打青少年組13-15歲 季軍</div>
+        <div class="a-event">康樂及文化事務署、北區體育會 合辦</div>
+        <div class="a-date">2022年</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" style="background:#eef2f6;">
+  <h2 class="section-title">工作經歷</h2>
+  <p class="subtitle">Work Experience</p>
+  <div class="timeline">
+    <div class="tl-item">
+      <h3>羽毛球俱樂部 助教教練</h3>
+      <p class="period">2024 – 現在</p>
+      <p>協助主教練進行球會訓練課程,負責兒童初級班嘅課程設計及執教,包括基礎步法、握拍及擊球技術教學,並協助安排訓練及比賽日程。</p>
+    </div>
+    <div class="tl-item">
+      <h3>兒童羽毛球初級課程 設計及導師</h3>
+      <p class="period">2023 – 2024</p>
+      <p>獨立設計適合初學兒童嘅羽毛球課程大綱,涵蓋基礎動作、遊戲化訓練及安全指引,提升學員對運動嘅興趣及參與度。</p>
+    </div>
+    <div class="tl-item">
+      <h3>運動相關報告 / 簡報製作</h3>
+      <p class="period">持續進行中</p>
+      <p>為課程作業製作多份運動科學、營養學及訓練編排相關嘅研究報告及簡報,培養資料整理、統計分析及簡報表達能力。</p>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <h2 class="section-title">學歷</h2>
+  <p class="subtitle">Education</p>
+  <div class="edu-card">
+    <h3>體適能與運動營養學 高級文憑</h3>
+    <p class="period">香港專業教育學院 (IVE) · 現正修讀</p>
+    <p>主修範疇包括運動生理學、運動營養學、體能訓練編排及運動教學法。</p>
+  </div>
+  <div class="edu-card">
+    <h3>中學教育</h3>
+    <p class="period">香港</p>
+    <p>完成香港中學課程,期間積極參與羽毛球校隊訓練及比賽。</p>
+  </div>
+</section>
+
+<section id="contact" style="background:#eef2f6;">
+  <h2 class="section-title">聯絡我</h2>
+  <p class="subtitle">Let's Connect</p>
+  <div class="contact-box">
+    <p>如果你有興趣了解更多我嘅羽毛球比賽經歷、教學經驗、運動營養知識分享,或者想合作,歡迎隨時聯絡我!</p>
+    <div class="contact-links">
+      <a href="mailto:youremail@example.com">📧 Email</a>
+      <a href="#" target="_blank">📷 Instagram</a>
+      <a href="#" target="_blank">💼 LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 陳同學 · Fitness & Sports Nutrition Student · Badminton Player, Hong Kong
+</footer>
+
+</body>
+</html>
