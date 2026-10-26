@@ -1,0 +1,30 @@
+<!-- Adapted from the Vue Bits StrokeText source supplied by the site owner. -->
+<script setup lang="ts">
+import {gsap} from 'gsap';
+import {ScrollTrigger} from 'gsap/ScrollTrigger';
+import {computed,onMounted,onUnmounted,ref,watch,type CSSProperties} from 'vue';
+if(typeof window!=='undefined')gsap.registerPlugin(ScrollTrigger);
+interface Props{text?:string;strokeColor?:string;fillColor?:string;strokeWidth?:number;drawDuration?:number;fillDelay?:number;stagger?:number;ease?:string;trigger?:'mount'|'hover'|'scroll'|'loop';fillMode?:'wipe'|'fade'|'none';fontSize?:number;fontWeight?:number|string;letterSpacing?:number;reverse?:boolean;className?:string;style?:CSSProperties;}
+const props=withDefaults(defineProps<Props>(),{text:'Draw Attention',strokeColor:'#8bfa99',fillColor:'#F8FAFC',strokeWidth:1.4,drawDuration:1.6,fillDelay:.2,stagger:.05,ease:'power2.out',trigger:'mount',fillMode:'wipe',fontSize:128,fontWeight:800,letterSpacing:-4,reverse:false,className:''});
+const root=ref<HTMLSpanElement|null>(null),stroke=ref<SVGTextElement|null>(null),wipe=ref<SVGRectElement|null>(null),box=ref<{x:number;y:number;width:number;height:number}|null>(null);
+const wipeId='stroke-wipe-'+Math.random().toString(36).slice(2),chars=computed(()=>Array.from(props.text)),dash=computed(()=>Math.max(props.fontSize*7,200)),font=computed(()=>({fontSize:props.fontSize+'px',fontWeight:props.fontWeight,letterSpacing:props.letterSpacing+'px',fontFamily:'inherit',whiteSpace:'pre' as const}));
+const viewBox=computed(()=>box.value?`${box.value.x} ${box.value.y} ${box.value.width} ${box.value.height}`:`0 ${-props.fontSize} 600 ${props.fontSize*1.3}`);
+const svgStyle=computed<CSSProperties>(()=>box.value?{width:box.value.width+'px',height:box.value.height+'px',maxWidth:'100%',display:'block',overflow:'visible'}:{position:'absolute',visibility:'hidden',width:'600px',height:props.fontSize*1.3+'px'});
+let alive=false,measureVersion=0,cleanup:(()=>void)|null=null,mq:MediaQueryList|null=null;
+function measure(){const version=++measureVersion;const run=()=>{if(!alive||version!==measureVersion||!stroke.value)return;let b:DOMRect;try{b=stroke.value.getBBox();}catch{return;}if(!b.width)return;const pad=Math.max(props.strokeWidth||1,props.fontSize*.1),next={x:b.x-pad,y:b.y-pad,width:b.width+pad*2,height:b.height+pad*2},old=box.value;if(!old||Object.keys(next).some(k=>Math.abs(old[k as keyof typeof old]-next[k as keyof typeof next])>.05))box.value=next;};run();document.fonts?.ready.then(run).catch(()=>{});}
+function animate(){cleanup?.();cleanup=null;if(!alive||!root.value||!box.value)return;const element=root.value,strokes=[...element.querySelectorAll('[data-stroke-char]')],fills=[...element.querySelectorAll('[data-fill-char]')],rect=wipe.value,targets=[...strokes,...fills,...(rect?[rect]:[])],enabled=props.fillMode!=='none',useWipe=props.fillMode==='wipe',stagger=props.reverse?{each:props.stagger,from:'end' as const}:props.stagger;let timeline:gsap.core.Timeline|null=null,scroll:ReturnType<typeof ScrollTrigger.create>|null=null;
+const end=()=>{gsap.set(strokes,{strokeDasharray:dash.value,strokeDashoffset:0});gsap.set(fills,{opacity:enabled?1:0});if(rect)gsap.set(rect,{attr:{width:enabled?box.value!.width:0}});};
+const play=()=>{timeline?.kill();gsap.killTweensOf(targets);gsap.set(strokes,{strokeDasharray:dash.value,strokeDashoffset:dash.value});gsap.set(fills,{opacity:useWipe?1:0});if(rect)gsap.set(rect,{attr:{width:0}});timeline=gsap.timeline({repeat:props.trigger==='loop'?-1:0,repeatDelay:.9});timeline.to(strokes,{strokeDashoffset:0,duration:props.drawDuration,ease:props.ease,stagger},0);const at=props.drawDuration+props.fillDelay,duration=Math.max(.4,props.drawDuration*.5);if(enabled){if(useWipe&&rect)timeline.to(rect,{attr:{width:box.value!.width},duration,ease:'power2.inOut'},at);else timeline.to(fills,{opacity:1,duration,ease:'power2.out',stagger},at);}};
+if(mq?.matches)end();else if(props.trigger==='hover'){end();element.addEventListener('pointerenter',play);}else if(props.trigger==='scroll'){end();scroll=ScrollTrigger.create({trigger:element,start:'top 82%',once:true,onEnter:play});}else play();
+cleanup=()=>{element.removeEventListener('pointerenter',play);scroll?.kill();timeline?.kill();gsap.killTweensOf(targets);};}
+watch(()=>[props.text,props.fontSize,props.fontWeight,props.letterSpacing,props.strokeWidth],measure,{flush:'post'});
+watch(()=>[box.value,dash.value,props.drawDuration,props.fillDelay,props.stagger,props.ease,props.trigger,props.fillMode,props.reverse],animate,{flush:'post'});
+onMounted(()=>{alive=true;mq=matchMedia('(prefers-reduced-motion: reduce)');mq.addEventListener('change',animate);measure();});
+onUnmounted(()=>{alive=false;measureVersion++;mq?.removeEventListener('change',animate);cleanup?.();cleanup=null;});
+</script>
+<template>
+<span ref="root" class="xxy-stroke-text" :class="className" :style="style" role="img" :aria-label="text"><span v-if="!box" :style="font" aria-hidden="true">{{text}}</span><svg :style="svgStyle" :viewBox="viewBox" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><defs v-if="fillMode==='wipe' && box"><clipPath :id="wipeId" clipPathUnits="userSpaceOnUse"><rect ref="wipe" :x="box.x" :y="box.y" width="0" :height="box.height"/></clipPath></defs><text ref="stroke" x="0" y="0" fill="none" :stroke="strokeColor" :stroke-width="strokeWidth" stroke-linejoin="round" stroke-linecap="round" :style="font" xml:space="preserve"><tspan v-for="(char,i) in chars" :key="'s'+i" data-stroke-char>{{char}}</tspan></text><text x="0" y="0" :fill="fillColor" stroke="none" :style="font" :clip-path="fillMode==='wipe' && box?'url(#'+wipeId+')':undefined" xml:space="preserve"><tspan v-for="(char,i) in chars" :key="'f'+i" data-fill-char>{{char}}</tspan></text></svg></span>
+</template>
+<style scoped>
+.xxy-stroke-text{display:inline-block;position:relative;max-width:100%;line-height:0;vertical-align:middle;font-family:inherit}.xxy-stroke-text svg{font-family:inherit}.xxy-stroke-text text{user-select:none}
+</style>
